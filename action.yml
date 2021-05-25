@@ -1,0 +1,21 @@
+name: GitHub actions kustomize argocd manifests
+author: Gabriel Ferreira <gabriel.oliveira@platformbuilders.io>
+description: GitHub action used to get git repository informations
+branding:
+  icon: feather
+  color: gray-dark
+
+inputs:
+  gitops-repo-name:
+    description: 'The name of GitOps repository'
+    required: true
+  gitops-repo-url:
+    description: 'The URL of GitOps repository'
+    required: true
+
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+  args:
+    - ${{ inputs.gitops-repo-name }}
+    - ${{ inputs.gitops-repo-url }}
