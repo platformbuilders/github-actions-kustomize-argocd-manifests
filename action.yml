@@ -12,14 +12,20 @@ inputs:
   gitops-repo-url:
     description: 'The URL of GitOps repository'
     required: true
-  GH_ACCESS_TOKEN:
+  gh_access_token:
     description: 'The access token of GitOps repository'
     required: true
-  GCP_PROJECT_ID_PROD:
+  gcp_project_id_prod:
     description: 'The GCP project ID'
     required: true
-  APP_ID:
+  app_id:
     description: 'The App ID'
+    required: true
+  github_actor:
+    description: 'The github commit actor ID'
+    required: true
+  app_github_job:
+    description: 'The github job'
     required: true
 
 runs:
@@ -28,6 +34,8 @@ runs:
   args:
     - ${{ inputs.gitops-repo-name }}
     - ${{ inputs.gitops-repo-url }}
-    - ${{ inputs.GH_ACCESS_TOKEN }}
-    - ${{ inputs.GCP_PROJECT_ID_PROD }}
-    - ${{ inputs.APP_ID }}
+    - ${{ inputs.gh_access_token }}
+    - ${{ inputs.gcp_project_id_prod }}
+    - ${{ inputs.app_id }}
+    - ${{ inputs.github_actor }}
+    - ${{ inputs.github_job }}

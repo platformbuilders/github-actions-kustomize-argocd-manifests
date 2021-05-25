@@ -17,16 +17,21 @@ if [[ "$GITOPS_BRANCH" == "develop" ]]; then
     cat kustomization.yaml
 
     printf "============> Git push: Branch develop \n"
+    cd ../..
+    git commit -am "$6 has Built: $7 - $RELEASE_VERSION"
     git push 
 
     printf "============> Homolog Kustomize step \n"
+    cd overlays/dev
     git checkout release
     sed -i "s/version:.*/version: $RELEASE_VERSION/g" datadog-env-patch.yaml
     kustomize edit set image IMAGE=gcr.io/$4$5:$RELEASE_VERSION
     cat kustomization.yaml
 
     printf "============> Git push: Branch release \n"
-    git push
+    cd ../..
+    git commit -am "$6 has Built: $7 - $RELEASE_VERSION"
+    git push 
     
 # elif [[ "$BRANCH" == "develop" ]]; then
 #     cd $1/k8s$5/overlays/homolog
