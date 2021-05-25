@@ -13,7 +13,7 @@ if [[ "$GITOPS_BRANCH" == "develop" ]]; then
     cd k8s/$5/overlays/dev
     sed -i "s/version:.*/version: $RELEASE_VERSION/g" datadog-env-patch.yaml
     kustomize edit set image IMAGE=gcr.io/$4$5:$RELEASE_VERSION
-    cat kustomization.yaml
+    echo "Done!!"
 
     printf "\033[0;32m============> Git push: Branch develop \033[0m\n"
     cd ../..
@@ -25,7 +25,7 @@ if [[ "$GITOPS_BRANCH" == "develop" ]]; then
     git checkout release
     sed -i "s/version:.*/version: $RELEASE_VERSION/g" datadog-env-patch.yaml
     kustomize edit set image IMAGE=gcr.io/$4$5:$RELEASE_VERSION
-    cat kustomization.yaml
+    echo "Done!!"
 
     printf "\033[0;32m============> Git push: Branch release \033[0m\n"
     cd ../..

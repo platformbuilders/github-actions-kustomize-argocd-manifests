@@ -24,7 +24,7 @@ inputs:
   github_actor:
     description: 'The github commit actor ID'
     required: true
-  app_github_job:
+  github_job:
     description: 'The github job'
     required: true
 
