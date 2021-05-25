@@ -5,7 +5,8 @@
           
 if [[ "$GITOPS_BRANCH" == "develop" ]]; then
     printf "============> Cloning $1 - Branch: $GITOPS_BRANCH"
-    git clone https://${{ secrets.GH_ACCESS_TOKEN }}:x-oauth-basic@$2 -b $GITOPS_BRANCH
+    GITOPS_REPO_FULL_URL="https://${{ secrets.GH_ACCESS_TOKEN }}:x-oauth-basic@$2"
+    git clone $GITOPS_REPO_FULL_URL -b $GITOPS_BRANCH
     cd $1
     
     printf "============> Git config step"
