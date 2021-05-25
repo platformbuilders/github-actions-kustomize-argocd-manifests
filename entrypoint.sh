@@ -1,4 +1,4 @@
-#!/bin/sh -l
+#!/bin/bash
 
 #gitops-repo-name="$1"
 #gitops-repo-url="$2"
