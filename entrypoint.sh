@@ -5,7 +5,7 @@
           
 if [[ "$GITOPS_BRANCH" == "develop" ]]; then
     printf "============> Cloning $1 - Branch: $GITOPS_BRANCH"
-    GITOPS_REPO_FULL_URL="https://${{ secrets.GH_ACCESS_TOKEN }}:x-oauth-basic@$2"
+    GITOPS_REPO_FULL_URL="https://$3:x-oauth-basic@$2"
     git clone $GITOPS_REPO_FULL_URL -b $GITOPS_BRANCH
     cd $1
     
@@ -14,25 +14,25 @@ if [[ "$GITOPS_BRANCH" == "develop" ]]; then
     git config --local user.name "GitHub Action"
 
     printf "============> Develop Kustomize step"
-    cd k8s/${{ secrets.APP_ID }}/overlays/dev
-    sed -i "s/version:.*/version: ${{ env.RELEASE_VERSION }}/g" datadog-env-patch.yaml
-    kustomize edit set image IMAGE=gcr.io/${{ secrets.GCP_PROJECT_ID_PROD }}/${{ secrets.APP_ID }}:${{ env.RELEASE_VERSION }}
+    cd k8s/$5/overlays/dev
+    sed -i "s/version:.*/version: $RELEASE_VERSION/g" datadog-env-patch.yaml
+    kustomize edit set image IMAGE=gcr.io/$4$5:$RELEASE_VERSION
     cat kustomization.yaml
 
     printf "============> Homolog Kustomize step"
     git checkout release
-    sed -i "s/version:.*/version: ${{ env.RELEASE_VERSION }}/g" datadog-env-patch.yaml
-    kustomize edit set image IMAGE=gcr.io/${{ secrets.GCP_PROJECT_ID_PROD }}/${{ secrets.APP_ID }}:${{ env.RELEASE_VERSION }}
+    sed -i "s/version:.*/version: $RELEASE_VERSION/g" datadog-env-patch.yaml
+    kustomize edit set image IMAGE=gcr.io/$4$5:$RELEASE_VERSION
     cat kustomization.yaml
     ## GIT PUSH STEPS
 
 # elif [[ "$BRANCH" == "develop" ]]; then
-#     cd $1/k8s/${{ secrets.APP_ID }}/overlays/homolog
-#     sed -i "s/version:.*/version: ${{ env.RELEASE_VERSION }}/g" datadog-env-patch.yaml
-#     kustomize edit set image IMAGE=gcr.io/${{ secrets.GCP_PROJECT_ID_PROD }}/${{ secrets.APP_ID }}:${{ env.RELEASE_VERSION }}
+#     cd $1/k8s$5/overlays/homolog
+#     sed -i "s/version:.*/version: $RELEASE_VERSION/g" datadog-env-patch.yaml
+#     kustomize edit set image IMAGE=gcr.io/$4$5:$RELEASE_VERSION
 
 #     cd ..
 #     cd prod
-#     sed -i "s/version:.*/version: ${{ env.RELEASE_VERSION }}/g" datadog-env-patch.yaml
-#     kustomize edit set image IMAGE=gcr.io/${{ secrets.GCP_PROJECT_ID_PROD }}/${{ secrets.APP_ID }}:${{ env.RELEASE_VERSION }}
+#     sed -i "s/version:.*/version: $RELEASE_VERSION/g" datadog-env-patch.yaml
+#     kustomize edit set image IMAGE=gcr.io/$4$5:$RELEASE_VERSION
 fi
