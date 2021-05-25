@@ -3,9 +3,9 @@
 #gitops-repo-name="$1"
 #gitops-repo-url="$2"
           
-if [[ "$BRANCH" == "develop" ]]; then
-    printf "============> Cloning $1 - Branch: $BRANCH"
-    git clone https://${{ secrets.GH_ACCESS_TOKEN }}:x-oauth-basic@$$2 -b $BRANCH    
+if [[ "$GITOPS_BRANCH" == "develop" ]]; then
+    printf "============> Cloning $1 - Branch: $GITOPS_BRANCH"
+    git clone https://${{ secrets.GH_ACCESS_TOKEN }}:x-oauth-basic@$2 -b $GITOPS_BRANCH
     cd $1
     
     printf "============> Git config step"
