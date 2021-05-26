@@ -18,7 +18,7 @@ if [[ "$GITOPS_BRANCH" == "develop" ]]; then
 
     printf "\033[0;32m============> Git push: Branch develop \033[0m\n"
     cd ../..
-    git commit -am "$6 has Built a new version: - $RELEASE_VERSION"
+    git commit -am "$6 has Built a new version: $RELEASE_VERSION"
     git push 
 
     ############################################################################################## Release Kustomize - DEV Overlays
@@ -31,7 +31,7 @@ if [[ "$GITOPS_BRANCH" == "develop" ]]; then
 
     printf "\033[0;32m============> Git push: Branch release \033[0m\n"
     cd ../..
-    git commit -am "$6 has Built a new version: - $RELEASE_VERSION"
+    git commit -am "$6 has Built a new version: $RELEASE_VERSION"
     git push 
     
 elif [[ "$GITOPS_BRANCH" == "release" ]]; then    
@@ -58,7 +58,7 @@ elif [[ "$GITOPS_BRANCH" == "release" ]]; then
 
     printf "\033[0;32m============> Git push: Branch release \033[0m\n"
     cd ../..
-    git commit -am "$6 has Built a new version: - $RELEASE_VERSION"
+    git commit -am "$6 has Built a new version: $RELEASE_VERSION"
     git push
 
     ############################################################################################## Develop Kustomize - HML Overlays
@@ -71,6 +71,6 @@ elif [[ "$GITOPS_BRANCH" == "release" ]]; then
 
     printf "\033[0;32m============> Git push: Branch develop \033[0m\n"
     cd ../..
-    git commit -am "$6 has Built a new version: - $RELEASE_VERSION"
+    git commit -am "$6 has Built a new version: $RELEASE_VERSION"
     git push
 fi
