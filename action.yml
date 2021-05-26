@@ -24,9 +24,6 @@ inputs:
   github_actor:
     description: 'The github commit actor ID'
     required: true
-  github_job:
-    description: 'The github job'
-    required: true
 
 runs:
   using: 'docker'
