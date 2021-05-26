@@ -4,7 +4,6 @@ if [[ "$GITOPS_BRANCH" == "develop" ]]; then
     printf "\033[0;32m============> Cloning $1 - Branch: $GITOPS_BRANCH \033[0m\n"
     GITOPS_REPO_FULL_URL="https://$3:x-oauth-basic@$2"
     git clone $GITOPS_REPO_FULL_URL -b $GITOPS_BRANCH
-    chmod -R 777 $1
     cd $1
     git config --local user.email "action@github.com"
     git config --local user.name "GitHub Action"
@@ -39,7 +38,6 @@ elif [[ "$GITOPS_BRANCH" == "release" ]]; then
     printf "\033[0;32m============> Cloning $1 - Branch: $GITOPS_BRANCH \033[0m\n"
     GITOPS_REPO_FULL_URL="https://$3:x-oauth-basic@$2"
     git clone $GITOPS_REPO_FULL_URL -b $GITOPS_BRANCH
-    chmod -R 777 $1
     cd $1
     git config --local user.email "action@github.com"
     git config --local user.name "GitHub Action"
