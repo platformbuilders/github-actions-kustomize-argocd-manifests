@@ -45,13 +45,13 @@ elif [[ "$GITOPS_BRANCH" == "release" ]]; then
 
     ############################################################################################## Release Kustomize - HML and PRD Overlays
     printf "\033[0;32m============> Release branch Kustomize step - HML Overlay \033[0m\n"
-    cd k8s/$5/overlays/hml
+    cd k8s/$5/overlays/homolog
     sed -i "s/version:.*/version: $RELEASE_VERSION/g" datadog-env-patch.yaml
     kustomize edit set image IMAGE=gcr.io/$4$5:$RELEASE_VERSION
     echo "Done!!"
 
     printf "\033[0;32m============> Release branch Kustomize step - PRD Overlay \033[0m\n"
-    cd ../prd
+    cd ../prod
     sed -i "s/version:.*/version: $RELEASE_VERSION/g" datadog-env-patch.yaml
     kustomize edit set image IMAGE=gcr.io/$4$5:$RELEASE_VERSION
     echo "Done!!"
@@ -63,7 +63,7 @@ elif [[ "$GITOPS_BRANCH" == "release" ]]; then
 
     ############################################################################################## Develop Kustomize - HML Overlays
     printf "\033[0;32m============> Develop branch Kustomize step - HML Overlay \033[0m\n"
-    cd overlays/hml
+    cd overlays/homolog
     git checkout develop
     sed -i "s/version:.*/version: $RELEASE_VERSION/g" datadog-env-patch.yaml
     kustomize edit set image IMAGE=gcr.io/$4$5:$RELEASE_VERSION
