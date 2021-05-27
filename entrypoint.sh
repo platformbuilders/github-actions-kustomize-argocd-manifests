@@ -62,15 +62,15 @@ elif [[ "$GITOPS_BRANCH" == "release" ]]; then
     git push
 
     ############################################################################################## Develop Kustomize - HML Overlays
-    printf "\033[0;32m============> Develop branch Kustomize step - HML Overlay \033[0m\n"
-    cd overlays/homolog
-    git checkout develop
-    sed -i "s/version:.*/version: $RELEASE_VERSION/g" datadog-env-patch.yaml
-    kustomize edit set image IMAGE=gcr.io/$4$5:$RELEASE_VERSION
-    echo "Done!!"
+    # printf "\033[0;32m============> Develop branch Kustomize step - HML Overlay \033[0m\n"
+    # cd overlays/homolog
+    # git checkout develop
+    # sed -i "s/version:.*/version: $RELEASE_VERSION/g" datadog-env-patch.yaml
+    # kustomize edit set image IMAGE=gcr.io/$4$5:$RELEASE_VERSION
+    # echo "Done!!"
 
-    printf "\033[0;32m============> Git push: Branch develop \033[0m\n"
-    cd ../..
-    git commit -am "$6 has Built a new version: $RELEASE_VERSION"
-    git push
+    # printf "\033[0;32m============> Git push: Branch develop \033[0m\n"
+    # cd ../..
+    # git commit -am "$6 has Built a new version: $RELEASE_VERSION"
+    # git push
 fi
