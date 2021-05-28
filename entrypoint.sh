@@ -37,10 +37,11 @@ if [[ "$GITOPS_BRANCH" == "develop" ]]; then
 elif [[ "$GITOPS_BRANCH" == "release" ]]; then    
     printf "\033[0;32m============> Cloning $1 - Branch: $GITOPS_BRANCH \033[0m\n"
     GITOPS_REPO_FULL_URL="https://$3:x-oauth-basic@$2"
-    git clone $GITOPS_REPO_FULL_URL -b $GITOPS_BRANCH
+    git clone $GITOPS_REPO_FULL_URL
     cd $1
+    git checkout release
     git config --local user.email "action@github.com"
-    git config --local user.name "GitHub Action"
+    git config --local user.name "GitHub Action"    
     echo "Repo $1 cloned!!!"
 
     ############################################################################################## Release Kustomize - HML and PRD Overlays
@@ -76,4 +77,7 @@ elif [[ "$GITOPS_BRANCH" == "release" ]]; then
 
     printf "\033[0;32m============> GOING BACK TO RELEASE BRANCH BEFORE PR!!! \033[0m\n"
     git checkout release
+
+    git remote set-url upstream https://@$2 
+    git remote set-url origin https://@$2
 fi
