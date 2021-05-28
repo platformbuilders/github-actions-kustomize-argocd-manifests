@@ -39,8 +39,10 @@ elif [[ "$GITOPS_BRANCH" == "release" ]]; then
     # GITOPS_REPO_FULL_URL="https://$3:x-oauth-basic@$2"
     # git clone $GITOPS_REPO_FULL_URL -b $GITOPS_BRANCH
     # cd $1
-    # git config --local user.email "action@github.com"
-    # git config --local user.name "GitHub Action"
+    git config --local user.email "action@github.com"
+    git config --local user.name "GitHub Action"
+    git remote set-url upstream https://$3:x-oauth-basic@$2
+    git remote set-url origin https://$3:x-oauth-basic@$2
     # echo "Repo $1 cloned!!!"
 
     ############################################################################################## Release Kustomize - HML and PRD Overlays
