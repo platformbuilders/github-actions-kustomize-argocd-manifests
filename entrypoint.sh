@@ -35,7 +35,7 @@ if [[ "$GITOPS_BRANCH" == "develop" ]]; then
     # git push 
     
 elif [[ "$GITOPS_BRANCH" == "release" ]]; then    
-    # printf "\033[0;32m============> Cloning $1 - Branch: $GITOPS_BRANCH \033[0m\n"
+    printf "\033[0;32m============> Cloning $1 - Branch: $GITOPS_BRANCH \033[0m\n"
     # GITOPS_REPO_FULL_URL="https://$3:x-oauth-basic@$2"
     # git clone $GITOPS_REPO_FULL_URL -b $GITOPS_BRANCH
     # cd $1
