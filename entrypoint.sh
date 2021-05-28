@@ -77,7 +77,7 @@ elif [[ "$GITOPS_BRANCH" == "release" ]]; then
 
     printf "\033[0;32m============> GOING BACK TO RELEASE BRANCH BEFORE PR!!! \033[0m\n"
     git checkout release
-
+    git pull
     git remote set-url upstream https://@$2 
     git remote set-url origin https://@$2
 fi
