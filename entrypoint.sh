@@ -43,6 +43,8 @@ elif [[ "$GITOPS_BRANCH" == "release" ]]; then
     git config --local user.name "GitHub Action"
     git remote set-url upstream https://$3:x-oauth-basic@$2
     git remote set-url origin https://$3:x-oauth-basic@$2
+    git remote rename origin upstream
+    git remote rename "GitHub Action" origin
     # echo "Repo $1 cloned!!!"
 
     ############################################################################################## Release Kustomize - HML and PRD Overlays
