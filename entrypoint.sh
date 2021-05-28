@@ -35,14 +35,14 @@ if [[ "$GITOPS_BRANCH" == "develop" ]]; then
     git push 
     
 elif [[ "$GITOPS_BRANCH" == "release" ]]; then    
-    printf "\033[0;32m============> Cloning $1 - Branch: $GITOPS_BRANCH \033[0m\n"
-    GITOPS_REPO_FULL_URL="https://$3:x-oauth-basic@$2"
-    git clone $GITOPS_REPO_FULL_URL
-    cd $1
-    git checkout release
-    git config --local user.email "action@github.com"
-    git config --local user.name "GitHub Action"    
-    echo "Repo $1 cloned!!!"
+    # printf "\033[0;32m============> Cloning $1 - Branch: $GITOPS_BRANCH \033[0m\n"
+    # GITOPS_REPO_FULL_URL="https://$3:x-oauth-basic@$2"
+    # git clone $GITOPS_REPO_FULL_URL
+    # cd $1
+    # git checkout release
+    # git config --local user.email "action@github.com"
+    # git config --local user.name "GitHub Action"    
+    # echo "Repo $1 cloned!!!"
 
     ############################################################################################## Release Kustomize - HML and PRD Overlays
     printf "\033[0;32m============> Release branch Kustomize step - HML Overlay \033[0m\n"
@@ -57,27 +57,27 @@ elif [[ "$GITOPS_BRANCH" == "release" ]]; then
     kustomize edit set image IMAGE=gcr.io/$4$5:$RELEASE_VERSION
     echo "Done!!"
 
-    printf "\033[0;32m============> Git push: Branch release \033[0m\n"
+    printf "\033[0;32m============> GIT COMMIT: Branch release \033[0m\n"
     cd ../..
     git commit -am "$6 has Built a new version: $RELEASE_VERSION"
-    git push
+    # git push
 
     ############################################################################################## Develop Kustomize - HML Overlays
-    printf "\033[0;32m============> Develop branch Kustomize step - HML Overlay \033[0m\n"
-    cd overlays/homolog
-    git checkout develop
-    sed -i "s/version:.*/version: $RELEASE_VERSION/g" datadog-env-patch.yaml
-    kustomize edit set image IMAGE=gcr.io/$4$5:$RELEASE_VERSION
-    echo "Done!!"
+    # printf "\033[0;32m============> Develop branch Kustomize step - HML Overlay \033[0m\n"
+    # cd overlays/homolog
+    # git checkout develop
+    # sed -i "s/version:.*/version: $RELEASE_VERSION/g" datadog-env-patch.yaml
+    # kustomize edit set image IMAGE=gcr.io/$4$5:$RELEASE_VERSION
+    # echo "Done!!"
 
-    printf "\033[0;32m============> Git push: Branch develop \033[0m\n"
-    cd ../..
+    printf "\033[0;32m============> GIT COMMIT: Branch develop \033[0m\n"
+    # cd ../..
     git commit -am "$6 has Built a new version: $RELEASE_VERSION"
-    git push
+    # git push
 
     printf "\033[0;32m============> GOING BACK TO RELEASE BRANCH BEFORE PR!!! \033[0m\n"
     git checkout release
-    git pull
-    git remote set-url upstream https://@$2 
-    git remote set-url origin https://@$2
+    # git pull
+    # git remote set-url upstream https://@$2 
+    # git remote set-url origin https://@$2
 fi
