@@ -1,6 +1,6 @@
 name: GitHub actions kustomize argocd manifests
 author: Gabriel Ferreira <gabriel.oliveira@platformbuilders.io>
-description: GitHub action used to get git repository informations
+description: GitHub action used kustomize applications manifests
 branding:
   icon: feather
   color: gray-dark
@@ -35,4 +35,3 @@ runs:
     - ${{ inputs.gcp_project_id_prod }}
     - ${{ inputs.app_id }}
     - ${{ inputs.github_actor }}
-    - ${{ inputs.github_job }}
