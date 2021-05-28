@@ -62,7 +62,7 @@ elif [[ "$GITOPS_BRANCH" == "release" ]]; then
     git commit -am "$6 has Built a new version: $RELEASE_VERSION"
     git push
 
-    gh auth login --with-token $3
+    export GITHUB_TOKEN=$3
     gh pr create --head release --base master -t "GitHub Actions: Automatic PR opened by $6 - $RELEASE_VERSION" --body "GitHub Actions: Automatic PR opened by $6 - $RELEASE_VERSION"
 
 
