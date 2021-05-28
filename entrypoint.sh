@@ -65,23 +65,23 @@ elif [[ "$GITOPS_BRANCH" == "release" ]]; then
     export GITHUB_TOKEN=$3
     gh pr create --head release --base master -t "GitHub Actions: Automatic PR opened by $6 - $RELEASE_VERSION" --body "GitHub Actions: Automatic PR opened by $6 - $RELEASE_VERSION"
 
-
     ############################################################################################## Develop Kustomize - HML Overlays
-    # printf "\033[0;32m============> Develop branch Kustomize step - HML Overlay \033[0m\n"
-    # cd overlays/homolog
-    # git checkout develop
-    # sed -i "s/version:.*/version: $RELEASE_VERSION/g" datadog-env-patch.yaml
-    # kustomize edit set image IMAGE=gcr.io/$4$5:$RELEASE_VERSION
-    # echo "Done!!"
+    printf "\033[0;32m============> Develop branch Kustomize step - HML Overlay \033[0m\n"
+    cd overlays/homolog
+    git checkout develop
+    sed -i "s/version:.*/version: $RELEASE_VERSION/g" datadog-env-patch.yaml
+    kustomize edit set image IMAGE=gcr.io/$4$5:$RELEASE_VERSION
+    echo "Done!!"
 
-    printf "\033[0;32m============> GIT COMMIT: Branch develop \033[0m\n"
-    # cd ../..
+    printf "\033[0;32m============> Develop branch Kustomize step - PRD Overlay \033[0m\n"
+    cd ../prod
+    sed -i "s/version:.*/version: $RELEASE_VERSION/g" datadog-env-patch.yaml
+    kustomize edit set image IMAGE=gcr.io/$4$5:$RELEASE_VERSION
+    echo "Done!!"
+
     git commit -am "$6 has Built a new version: $RELEASE_VERSION"
-    # git push
+    git push
 
-    printf "\033[0;32m============> GOING BACK TO RELEASE BRANCH BEFORE PR!!! \033[0m\n"
+    printf "\033[0;32m============> GOING BACK TO RELEASE \033[0m\n"
     git checkout release
-    # git pull
-    # git remote set-url upstream https://@$2 
-    # git remote set-url origin https://@$2
 fi
