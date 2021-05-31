@@ -15,11 +15,11 @@ GitHub action used kustomize applications manifests
 
 ## Outputs
 
-There is no outputs for this action
+There are no outputs for this action
 
 ## Example usage
 
-```yam
+```yaml
       - name: Kustomize step
         uses: platformbuilders/github-actions-kustomize-argocd-manifests@master
         with:
