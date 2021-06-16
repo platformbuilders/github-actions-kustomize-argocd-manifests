@@ -19,7 +19,7 @@ if [[ "$GITOPS_BRANCH" == "develop" ]]; then
     printf "\033[0;32m============> Git push: Branch develop \033[0m\n"
     cd ../..
     git commit -am "$6 has Built a new version: $RELEASE_VERSION"
-    git push 
+    git push origin 
 
     ############################################################################################## Release Kustomize - DEV Overlays
     printf "\033[0;32m============> Release branch Kustomize step - DEV Overlay \033[0m\n"
@@ -32,7 +32,7 @@ if [[ "$GITOPS_BRANCH" == "develop" ]]; then
     printf "\033[0;32m============> Git push: Branch release \033[0m\n"
     cd ../..
     git commit -am "$6 has Built a new version: $RELEASE_VERSION"
-    git push 
+    git push origin 
     
 elif [[ "$GITOPS_BRANCH" == "release" ]]; then    
     printf "\033[0;32m============> Cloning $1 - Branch: $GITOPS_BRANCH \033[0m\n"
@@ -60,7 +60,7 @@ elif [[ "$GITOPS_BRANCH" == "release" ]]; then
     printf "\033[0;32m============> Git commit,push and open PR to Master: Branch release \033[0m\n"
     cd ../..
     git commit -am "$6 has Built a new version: $RELEASE_VERSION"
-    git push
+    git push origin
 
     export GITHUB_TOKEN=$3
     gh pr create --head release --base master -t "GitHub Actions: Automatic PR opened by $6 - $RELEASE_VERSION" --body "GitHub Actions: Automatic PR opened by $6 - $RELEASE_VERSION"
@@ -80,7 +80,7 @@ elif [[ "$GITOPS_BRANCH" == "release" ]]; then
     echo "Done!!"
 
     git commit -am "$6 has Built a new version: $RELEASE_VERSION"
-    git push
+    git push origin
 
     printf "\033[0;32m============> GOING BACK TO RELEASE \033[0m\n"
     git checkout release
