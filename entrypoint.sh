@@ -33,7 +33,43 @@ if [[ "$GITOPS_BRANCH" == "develop" ]]; then
     cd ../..
     git commit -am "$6 has Built a new version: $RELEASE_VERSION"
     git push origin release
-    
+
+elif [[ "$GITOPS_BRANCH" == "homolog" ]]; then    
+    printf "\033[0;32m============> Cloning $1 - Branch: $GITOPS_BRANCH \033[0m\n"
+    GITOPS_REPO_FULL_URL="https://$3:x-oauth-basic@$2"
+    git clone $GITOPS_REPO_FULL_URL -b $GITOPS_BRANCH
+    cd $1
+    git checkout release
+    git config --local user.email "action@github.com"
+    git config --local user.name "GitHub Action"    
+    echo "Repo $1 cloned!!!"
+
+    ############################################################################################## Release Kustomize - HML Overlays
+    printf "\033[0;32m============> Release branch Kustomize step - HML Overlay \033[0m\n"
+    cd k8s/$5/overlays/homolog
+    sed -i "s/version:.*/version: '$RELEASE_VERSION'/g" datadog-env-patch.yaml
+    kustomize edit set image IMAGE=gcr.io/$4$5:$RELEASE_VERSION
+    echo "Done!!"
+
+    printf "\033[0;32m============> Git commit and push \033[0m\n"
+    cd ../..
+    git commit -am "$6 has Built a new version: $RELEASE_VERSION"
+    git push origin release
+
+    ############################################################################################## Develop Kustomize - HML Overlays
+    printf "\033[0;32m============> Develop branch Kustomize step - HML Overlay \033[0m\n"
+    cd overlays/homolog
+    git checkout develop
+    sed -i "s/version:.*/version: '$RELEASE_VERSION'/g" datadog-env-patch.yaml
+    kustomize edit set image IMAGE=gcr.io/$4$5:$RELEASE_VERSION
+    echo "Done!!"
+
+    git commit -am "$6 has Built a new version: $RELEASE_VERSION"
+    git push origin develop
+
+    printf "\033[0;32m============> GOING BACK TO RELEASE \033[0m\n"
+    git checkout release
+
 elif [[ "$GITOPS_BRANCH" == "release" ]]; then    
     printf "\033[0;32m============> Cloning $1 - Branch: $GITOPS_BRANCH \033[0m\n"
     GITOPS_REPO_FULL_URL="https://$3:x-oauth-basic@$2"
