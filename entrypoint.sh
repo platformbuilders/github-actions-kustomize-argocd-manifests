@@ -1,6 +1,7 @@
 #!/bin/sh -l
           
 if [[ "$GITOPS_BRANCH" == "develop" ]]; then
+    echo "================================================================================================================ condição 1"
     printf "\033[0;32m============> Cloning $1 - Branch: $GITOPS_BRANCH \033[0m\n"
     GITOPS_REPO_FULL_URL="https://$3:x-oauth-basic@$2"
     git clone $GITOPS_REPO_FULL_URL -b $GITOPS_BRANCH
@@ -35,7 +36,8 @@ if [[ "$GITOPS_BRANCH" == "develop" ]]; then
     git push origin release
 
 elif [[ "$GITOPS_BRANCH" == "homolog" ]]; then    
-    printf "\033[0;32m============> Cloning $1 - Branch: $GITOPS_BRANCH \033[0m\n"
+    echo "================================================================================================================ condição 2"
+    printf "\033[0;32m============> Cloning $1 - Branch: release \033[0m\n"
     GITOPS_REPO_FULL_URL="https://$3:x-oauth-basic@$2"
     git clone $GITOPS_REPO_FULL_URL -b release
     cd $1
@@ -71,6 +73,7 @@ elif [[ "$GITOPS_BRANCH" == "homolog" ]]; then
     git checkout release
 
 elif [[ "$GITOPS_BRANCH" == "release" ]]; then    
+    echo "================================================================================================================ condição 3"
     printf "\033[0;32m============> Cloning $1 - Branch: $GITOPS_BRANCH \033[0m\n"
     GITOPS_REPO_FULL_URL="https://$3:x-oauth-basic@$2"
     git clone $GITOPS_REPO_FULL_URL -b $GITOPS_BRANCH
