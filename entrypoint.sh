@@ -1,7 +1,7 @@
 #!/bin/sh -l
           
 if [[ "$GITOPS_BRANCH" == "develop" ]]; then
-    echo "\033[0;36m================================================================================================================> Condition 1: Develop environment \033[0m\n"
+    echo "\033[0;32m================================================================================================================> Condition 1: Develop environment \033[0m\n"
     printf "\033[0;32m============> Cloning $1 - Branch: develop \033[0m\n"
     GITOPS_REPO_FULL_URL="https://$3:x-oauth-basic@$2"
     git clone $GITOPS_REPO_FULL_URL -b $GITOPS_BRANCH
@@ -36,7 +36,7 @@ if [[ "$GITOPS_BRANCH" == "develop" ]]; then
     git push origin release
 
 elif [[ "$GITOPS_BRANCH" == "homolog" ]]; then    
-    echo "\033[0;36m================================================================================================================> Condition 2: Homolog environment \033[0m\n"
+    echo "\033[0;32m================================================================================================================> Condition 2: Homolog environment \033[0m\n"
     printf "\033[0;32m============> Cloning $1 - Branch: release \033[0m\n"
     GITOPS_REPO_FULL_URL="https://$3:x-oauth-basic@$2"
     git clone $GITOPS_REPO_FULL_URL -b release
@@ -72,7 +72,7 @@ elif [[ "$GITOPS_BRANCH" == "homolog" ]]; then
     git checkout release
 
 elif [[ "$GITOPS_BRANCH" == "release" ]]; then    
-    echo "\033[0;36m================================================================================================================> Condition 3: New release (HML and PRD environment) \033[0m\n"
+    echo "\033[0;32m================================================================================================================> Condition 3: New release (HML and PRD environment) \033[0m\n"
     printf "\033[0;32m============> Cloning $1 - Branch: $GITOPS_BRANCH \033[0m\n"
     GITOPS_REPO_FULL_URL="https://$3:x-oauth-basic@$2"
     git clone $GITOPS_REPO_FULL_URL -b release
