@@ -86,6 +86,6 @@ elif [[ "$GITOPS_BRANCH" == "release" ]]; then
 
     printf "\033[0;32m============> Open PR: release -> master \033[0m\n"
     export GITHUB_TOKEN=$3
-    gh pr create --head release --base master -t "GitHub Actions: Automatic PR opened by $6 - $RELEASE_VERSION" --body "GitHub Actions: Automatic PR opened by $6 - $RELEASE_VERSION ($5)"
+    gh pr create --head release --base master -t "GitHub Actions: Automatic PR opened by $6 - $RELEASE_VERSION" --body "GitHub Actions: Automatic PR opened by $6 - $RELEASE_VERSION"
 
 fi
