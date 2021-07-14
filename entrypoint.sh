@@ -10,7 +10,6 @@ if [[ "$GITOPS_BRANCH" == "develop" ]]; then
     git config --local user.name "GitHub Action"
     echo "Repo $1 cloned!!!"
 
-    ############################################################################################## Develop Kustomize - DEV Overlays
     printf "\033[0;32m============> Develop branch Kustomize step - DEV Overlay \033[0m\n"
     cd k8s/$5/overlays/dev
     sed -i "s/version:.*/version: '$RELEASE_VERSION'/g" datadog-env-patch.yaml
@@ -37,8 +36,7 @@ elif [[ "$GITOPS_BRANCH" == "homolog" ]]; then
     git config --local user.name "GitHub Action"    
     echo "Repo $1 cloned!!!"
 
-    ############################################################################################## Release Kustomize - HML Overlays
-    printf "\033[0;32m============> Release branch Kustomize step - HML Overlay \033[0m\n"
+    printf "\033[0;32m============> Develop branch Kustomize step - HML Overlay \033[0m\n"
     cd k8s/$5/overlays/homolog
     sed -i "s/version:.*/version: '$RELEASE_VERSION'/g" datadog-env-patch.yaml
     kustomize edit set image IMAGE=gcr.io/$4/$5:$RELEASE_VERSION
@@ -64,20 +62,19 @@ elif [[ "$GITOPS_BRANCH" == "release" ]]; then
     git config --local user.name "GitHub Action"    
     echo "Repo $1 cloned!!!"
 
-    ############################################################################################## Release Kustomize - HML and PRD Overlays
-    printf "\033[0;32m============> Release branch Kustomize step - HML Overlay \033[0m\n"
+    printf "\033[0;32m============> Develop branch Kustomize step - HML Overlay \033[0m\n"
     cd k8s/$5/overlays/homolog
     sed -i "s/version:.*/version: '$RELEASE_VERSION'/g" datadog-env-patch.yaml
     kustomize edit set image IMAGE=gcr.io/$4/$5:$RELEASE_VERSION
     echo "Done!!"
 
-    printf "\033[0;32m============> Release branch Kustomize step - PRD Overlay \033[0m\n"
+    printf "\033[0;32m============> Develop branch Kustomize step - PRD Overlay \033[0m\n"
     cd ../prod
     sed -i "s/version:.*/version: '$RELEASE_VERSION'/g" datadog-env-patch.yaml
     kustomize edit set image IMAGE=gcr.io/$4/$5:$RELEASE_VERSION
     echo "Done!!"
 
-    printf "\033[0;32m============> Git commit,push and open PR to Master: Branch release \033[0m\n"
+    printf "\033[0;32m============> Git commit and push: Branch develop \033[0m\n"
     cd ../..
     git commit -am "$6 has Built a new version: $RELEASE_VERSION"
     git push origin develop
@@ -87,7 +84,8 @@ elif [[ "$GITOPS_BRANCH" == "release" ]]; then
     git merge develop
     git push origin release
 
+    printf "\033[0;32m============> Open PR: release -> master \033[0m\n"
     export GITHUB_TOKEN=$3
-    gh pr create --head release --base master -t "GitHub Actions: Automatic PR opened by $6 - $RELEASE_VERSION" --body "GitHub Actions: Automatic PR opened by $6 - $RELEASE_VERSION"
+    gh pr create --head release --base master -t "GitHub Actions: Automatic PR opened by $6 - $RELEASE_VERSION" --body "GitHub Actions: Automatic PR opened by $6 - $RELEASE_VERSION ($5)"
 
 fi
