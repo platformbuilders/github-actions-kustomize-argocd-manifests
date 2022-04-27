@@ -51,22 +51,25 @@ elif [[ "$GITOPS_BRANCH" == "homolog" ]]; then
     git push origin release
 
 elif [[ "$GITOPS_BRANCH" == "main" ]]; then
-    printf "\033[0;36m================================================================================================================> Condition 3: New release (HML and PRD environment) \033[0m\n"
+    printf "\033[0;36m================================================================================================================> Condition 3: New release PRD environment \033[0m\n"
     printf "\033[0;32m============> Cloning $1 - Branch: $GITOPS_BRANCH \033[0m\n"
     GITOPS_REPO_FULL_URL="https://$3:x-oauth-basic@$2"
-    git clone $GITOPS_REPO_FULL_URL -b master
+    git clone $GITOPS_REPO_FULL_URL -b release
     cd $1
     git config --local user.email "action@github.com"
     git config --local user.name "GitHub Action"
     echo "Repo $1 cloned!!!"
 
-    printf "\033[0;32m============> Develop branch Kustomize step - HML Overlay \033[0m\n"
+    printf "\033[0;32m============> Kustomize step - PRD Overlay \033[0m\n"
     cd k8s/$5/overlays/prd
     kustomize edit set image IMAGE=gcr.io/$4/$5:$RELEASE_VERSION
     echo "Done!!"
 
     cd ../..
     git commit -am "$6 has Built a new version: $RELEASE_VERSION"
+    git push origin release
+    git checkout master
+    git merge release
     git push origin master
 else
     printf "\033[0;32m============> No Way \033[0m\n"
