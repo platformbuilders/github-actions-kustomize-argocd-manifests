@@ -36,7 +36,7 @@ elif [[ "$GITOPS_BRANCH" == "homolog" ]]; then
     echo "Repo $1 cloned!!!"
 
     printf "\033[0;32m============> Develop branch Kustomize step - HML Overlay \033[0m\n"
-    cd k8s/$5/overlays/homolog
+    cd k8s/$5/overlays/hml
     kustomize edit set image IMAGE=gcr.io/$4/$5:$RELEASE_VERSION
     echo "Done!!"
 
