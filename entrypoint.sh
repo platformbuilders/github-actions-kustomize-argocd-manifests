@@ -48,7 +48,7 @@ elif [[ "$GITOPS_BRANCH" == "homolog" ]]; then
     git merge release
     git push origin homolog
 
-elif [[ "$GITOPS_BRANCH" == "main" ]]; then
+elif [[ "$GITOPS_BRANCH" == "main" || "$GITOPS_BRANCH" == "master" ]]; then
     printf "\033[0;36m================================================================================================================> Condition 3: New release PRD environment \033[0m\n"
     printf "\033[0;32m============> Cloning $1 - Branch: $GITOPS_BRANCH \033[0m\n"
     GITOPS_REPO_FULL_URL="https://$3:x-oauth-basic@$2"
