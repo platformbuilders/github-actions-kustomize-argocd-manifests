@@ -1,7 +1,7 @@
 # Container image that runs your code
 FROM alpine:3.10
 
-#install all dependencies 
+#install all dependencies
 ENV KUSTOMIZE_VER 3.0.0
 RUN apk add --update --no-cache bash
 RUN apk add git curl --update --no-cache bash
