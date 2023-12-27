@@ -24,6 +24,9 @@ inputs:
   github_actor:
     description: 'The github commit actor ID'
     required: true
+  registry:
+    description: 'The image registry'
+    default: 'gcr.io'
 
 runs:
   using: 'docker'
@@ -35,3 +38,4 @@ runs:
     - ${{ inputs.gcp_project_id_prod }}
     - ${{ inputs.app_id }}
     - ${{ inputs.github_actor }}
+    - ${{ inputs.registry }}
