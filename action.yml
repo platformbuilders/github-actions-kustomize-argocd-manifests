@@ -7,31 +7,31 @@ branding:
 
 inputs:
   gitops-repo-name:
-    description: 'The name of GitOps repository'
+    description: "The name of GitOps repository"
     required: true
   gitops-repo-url:
-    description: 'The URL of GitOps repository'
+    description: "The URL of GitOps repository"
     required: true
   gh_access_token:
-    description: 'The access token of GitOps repository'
+    description: "The access token of GitOps repository"
     required: true
-  gcp_project_id_prod:
-    description: 'The GCP project ID'
+  image_name:
+    description: "The image name"
     required: true
   app_id:
-    description: 'The App ID'
+    description: "The App ID"
     required: true
   github_actor:
-    description: 'The github commit actor ID'
+    description: "The github commit actor ID"
     required: true
 
 runs:
-  using: 'docker'
-  image: 'Dockerfile'
+  using: "docker"
+  image: "Dockerfile"
   args:
     - ${{ inputs.gitops-repo-name }}
     - ${{ inputs.gitops-repo-url }}
     - ${{ inputs.gh_access_token }}
-    - ${{ inputs.gcp_project_id_prod }}
+    - ${{ inputs.image_name }}
     - ${{ inputs.app_id }}
     - ${{ inputs.github_actor }}
