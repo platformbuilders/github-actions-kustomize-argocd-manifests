@@ -45,11 +45,11 @@ elif [[ "$GITOPS_BRANCH" == "homolog" ]]; then
     printf "\033[0;32m============> Git commit and push \033[0m\n"
     cd ../..
     git commit -am "$6 has Built a new version: $RELEASE_VERSION"
-    git push origin develop
+    git push origin homolog
 
-    printf "\033[0;32m============> Merge develop in to release branch \033[0m\n"
+    printf "\033[0;32m============> Merge homolog in to release branch \033[0m\n"
     git checkout release
-    git merge develop
+    git merge homolog
     git push origin release
 
 elif [[ "$GITOPS_BRANCH" == "release" ]]; then
