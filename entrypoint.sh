@@ -12,7 +12,7 @@ if [[ "$GITOPS_BRANCH" == "develop" ]]; then
 
     printf "\033[0;32m============> Develop branch Kustomize step - DEV Overlay \033[0m\n"
     cd k8s/$5/overlays/dev
-    sed -i "s/version:.*/version: '$RELEASE_VERSION'/g" datadog-env-patch.yaml
+
     kustomize edit set image IMAGE=$4:$RELEASE_VERSION
     echo "Done!!"
 
@@ -38,7 +38,7 @@ elif [[ "$GITOPS_BRANCH" == "homolog" ]]; then
 
     printf "\033[0;32m============> Develop branch Kustomize step - HML Overlay \033[0m\n"
     cd k8s/$5/overlays/homolog
-    sed -i "s/version:.*/version: '$RELEASE_VERSION'/g" datadog-env-patch.yaml
+
     kustomize edit set image IMAGE=$4:$RELEASE_VERSION
     echo "Done!!"
 
@@ -64,13 +64,13 @@ elif [[ "$GITOPS_BRANCH" == "release" ]]; then
 
     printf "\033[0;32m============> Develop branch Kustomize step - HML Overlay \033[0m\n"
     cd k8s/$5/overlays/homolog
-    sed -i "s/version:.*/version: '$RELEASE_VERSION'/g" datadog-env-patch.yaml
+
     kustomize edit set image IMAGE=$4:$RELEASE_VERSION
     echo "Done!!"
 
     printf "\033[0;32m============> Develop branch Kustomize step - PRD Overlay \033[0m\n"
     cd ../prod
-    sed -i "s/version:.*/version: '$RELEASE_VERSION'/g" datadog-env-patch.yaml
+
     kustomize edit set image IMAGE=$4:$RELEASE_VERSION
     echo "Done!!"
 
